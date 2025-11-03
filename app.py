@@ -1,15 +1,18 @@
 import streamlit as st
 import pickle
 
+# Load model and vectorizer
 model = pickle.load(open("spam_model.pkl", "rb"))
 vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
+# Page configuration
 st.set_page_config(
     page_title="Spam Email Classifier",
     page_icon="📧",
     layout="centered"
 )
 
+# Custom CSS styling
 st.markdown("""
     <style>
         .stApp {
@@ -48,17 +51,26 @@ st.markdown("""
         }
         [data-testid="stSidebar"] {
             background-color: #F2F4F4;
+            color: black;  /* sidebar text color */
+        }
+        .sidebar-text {
+            color: black;
+            font-size: 16px;
+            line-height: 1.6;
         }
     </style>
 """, unsafe_allow_html=True)
 
+# Main title and description
 st.markdown("<h1>📧 Spam Email Classifier</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align:center;'>Detect whether an email or message is <b>Spam</b> or <b>Not Spam</b> using AI 🤖</p>", unsafe_allow_html=True)
 
 st.markdown("<div class='main-box'>", unsafe_allow_html=True)
 
+# User input
 user_input = st.text_area("✉️ Enter your email or message below:", height=150)
 
+# Prediction button
 if st.button("🔍 Check Message"):
     if user_input.strip() == "":
         st.warning("⚠️ Please enter a message first!")
@@ -75,17 +87,23 @@ if st.button("🔍 Check Message"):
 
 st.markdown("</div>", unsafe_allow_html=True)
 
+# Sidebar content
 st.sidebar.header("📘 About This App")
-st.sidebar.write("""
-This AI-powered tool detects spam messages and phishing attempts using a trained
-machine learning model.
+st.sidebar.markdown("""
+<div class='sidebar-text'>
+This app helps you instantly detect whether an email or message is **Spam** or **Not Spam** 
+using an AI-based machine learning model.  
 
-**Technologies used:**
-- Streamlit
-- Scikit-learn
-- Python
-- Natural Language Processing (NLP)
-""")
+It analyzes your text using Natural Language Processing (NLP) to identify suspicious patterns 
+commonly found in spam or phishing messages.
 
-st.sidebar.markdown("---")
-st.sidebar.info("Developed with ❤️ by Madhuri")
+**Technologies used:**  
+• Streamlit  
+• Scikit-learn  
+• Python  
+• NLP (Natural Language Processing)  
+
+---
+<b>Developed with ❤️ by Madhuri</b>
+</div>
+""", unsafe_allow_html=True)
